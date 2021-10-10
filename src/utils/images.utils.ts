@@ -1,5 +1,5 @@
 export const uploadImageFormData = async ({
-  url = "http://localhost:8124/image/api/upload",
+  url = "https://cialfla.freedomains.dev/image/api/upload",
   file,
 }: {
   url?: RequestInfo;
