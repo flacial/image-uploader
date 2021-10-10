@@ -19,6 +19,7 @@
     "vite": "^2.6.4"
   },
   "dependencies": {
-    "animejs": "^3.2.1"
+    "animejs": "^3.2.1",
+    "gh-pages": "^3.2.3"
   }
 }
