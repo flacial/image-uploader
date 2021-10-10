@@ -49,11 +49,11 @@
 
   const randomDegree = (min, max) => Math.floor(Math.random() * (min - max) + max);
 
-  onMount(() => {
-    setTimeout(() => {
-      generatePartyPoppers(25);
-    }, 500);
-  });
+  // onMount(() => {
+    // setTimeout(() => {
+      window.onload = () => generatePartyPoppers(25);
+    // }, 500);
+  // });
 </script>
 
 <div class="div">
