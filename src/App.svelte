@@ -2,7 +2,12 @@
   import Upload from "./lib/Upload.svelte";
   import Uploading from "./lib/Uploading.svelte";
   import Uploaded from "./lib/Uploaded.svelte";
+  import LoadingCircles from "./lib/LoadingCircles.svelte";
   import { imageBuffer, imageUrl, isError } from "./store/store";
+
+  let loaded;
+
+  window.onload = () => (loaded = true);
 </script>
 
 <svelte:head>
@@ -19,27 +24,44 @@
 </svelte:head>
 
 <div class="wrapper">
-  <div class="card__container">
-    {#if $isError || !$imageBuffer}
-      <Upload />
-    {:else if $imageUrl}
-      <Uploaded />
-    {:else if $imageBuffer}
-      <Uploading />
-    {/if}
-  </div>
+  {#if loaded}
+    <div class="card__container">
+      {#if $isError || !$imageBuffer}
+        <Upload />
+      {:else if $imageUrl}
+        <Uploaded />
+      {:else if $imageBuffer}
+        <Uploading />
+      {/if}
+    </div>
+  {:else}
+    <div class="loading">
+      <LoadingCircles />
+    </div>
+  {/if}
 </div>
 
 <style>
+  .loading {
+    display: grid;
+    align-items: center;
+  }
   .wrapper {
-    height: 100%;
+    display: grid;
+    min-height: 100%;
     background: linear-gradient(180deg, #5d5fef 0%, #3637bd 100%);
   }
-
   .card__container {
     display: grid;
     place-items: center;
     height: 100%;
     padding: 0 20px;
+    overflow: hidden;
+  }
+
+  @media screen and (max-width: 360px) {
+    .card__container {
+      padding: 0 5px;
+    }
   }
 </style>

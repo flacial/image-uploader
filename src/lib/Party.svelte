@@ -1,16 +1,17 @@
-<script>
+<script lang="ts">
   import anime from "animejs/lib/anime.es.js";
   import { onMount } from "svelte";
 
   export let emojiWidth = 70;
+  export let shotsDelayed = true;
 
-  let partyPopperBig;
+  let partyPopperBig: { offsetHeight: number; offsetWidth: number };
   let partyPoppers = [];
 
-  const party = (i) => {
+  const party = () => {
     partyPoppers = [
       ...partyPoppers,
-      (el) => {
+      (el: { style: { display: string } }) => {
         anime({
           targets: el,
           translateX: [
@@ -25,26 +26,33 @@
           complete: () => {
             // Not sure if many elements would affect the performance.
             // partyPoppers.shift();
+            el.style.display = "none";
           },
         });
       },
     ];
   };
 
-  const generatePartyPoppers = (ppToGen, ppCount = 0) => {
+  const generatePartyPoppers = (ppToGen: number, ppCount = 0) => {
     if (ppCount === ppToGen) return;
 
-    party(ppCount);
+    party();
 
-    setTimeout(() => {
+    if (shotsDelayed) {
+      setTimeout(() => {
+        return generatePartyPoppers(ppToGen, ppCount + 1);
+      }, 20);
+    } else {
       return generatePartyPoppers(ppToGen, ppCount + 1);
-    }, 20);
+    }
   };
+
+  const randomDegree = (min, max) => Math.floor(Math.random() * (min - max) + max);
 
   onMount(() => {
     setTimeout(() => {
       generatePartyPoppers(25);
-    }, 300);
+    }, 500);
   });
 </script>
 
@@ -52,9 +60,7 @@
   {#each partyPoppers as pp}
     <div
       class="party-poppers"
-      style="transform: rotate({Math.floor(
-        Math.random() * (10 - -80) + -80
-      )}deg); height: {partyPopperBig.offsetHeight}px; width: {partyPopperBig.offsetWidth}px"
+      style="transform: rotate({randomDegree(10, -80)}deg); height: {partyPopperBig.offsetHeight}px; width: {partyPopperBig.offsetWidth}px"
     >
       <img
         class="partyPopper"

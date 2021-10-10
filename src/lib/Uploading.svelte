@@ -3,7 +3,7 @@
   import LoadingCircles from "./LoadingCircles.svelte";
 </script>
 
-<Card maxWidth={367} maxHeight={214} paddingY={35}>
+<Card maxWidth={367} maxHeight={214} paddingYTop={35} paddingYBottom={65}>
   <div class="wrapper">
     <h1>Uploading...</h1>
     <div class="loading__container">

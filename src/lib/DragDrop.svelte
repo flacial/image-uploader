@@ -1,7 +1,6 @@
 <script lang="ts">
-  import { imageBuffer } from "../store/store";
   import { uploadImageFormData } from "../utils/images.utils";
-  import { imageUrl, imageName, isError } from "../store/store";
+  import { imageUrl, imageName, imageBuffer, isError } from "../store/store";
 
   const dragStyles = {
     backgroundColor: "rgb(79 80 202 / 40%)",
@@ -23,20 +22,22 @@
           firstFile.getAsFile().type.split("/")[0] === "image";
 
         if (isImage) {
-          console.log(firstFile.getAsFile());
-          imageName.set(firstFile.getAsFile().name);
+          const reader = new FileReader();
+          const fileAsFile = firstFile.getAsFile();
+
+          imageName.set(fileAsFile.name);
+
+          reader.onload = () => {
+            imageBuffer.set(reader.result as string);
+          };
+
+          reader.readAsDataURL(fileAsFile);
+
           uploadImageFormData({ file: firstFile })
             .then((url) => {
               imageUrl.set(url);
             })
             .catch(() => isError.set(true));
-
-          firstFile
-            .getAsFile()
-            .text()
-            .then((buffer: string) => {
-              imageBuffer.set(buffer);
-            });
         }
       }
     } else {

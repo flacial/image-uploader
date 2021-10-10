@@ -15,10 +15,10 @@
       const reader = new FileReader();
 
       reader.onload = () => {
-        imageBuffer.set(reader.result);
+        imageBuffer.set(reader.result as string);
       };
 
-      reader.readAsText(firstFile);
+      reader.readAsDataURL(firstFile);
 
       uploadImageFormData({ file: firstFile })
         .then((url) => {
@@ -32,15 +32,20 @@
   };
 </script>
 
-<Card>
+<Card paddingYBottom={55}>
   <h1 class="card__heading">Upload Image</h1>
   <span class="card__imageTypeInfo">Any image type*</span>
   <div class="card__dragdrop__container">
     <DragDrop />
-    <img class="card__dudeOnDisk" src="dudeOnDisk.svg" alt="dude on disk" />
+    <img class="card__dudeOnDisk" src="dudeOnDisk.png" alt="dude on disk" />
   </div>
   {#if $isError}
-    <span class="error">Internal Error</span>
+    <div class="error__container">
+      <img src="error.svg" alt="error" />
+      <span class="error">Internal Error</span>
+    </div>
+  {:else}
+    <span class="dragInfo">Drag and drop an image</span>
   {/if}
   <div style="margin-top: {$isError && 32}px" class="card__or">
     <hr class="lineLeft" />
@@ -66,7 +71,19 @@
     font-weight: 500;
     font-size: 18px;
     color: #0d0d5b;
+  }
+
+  .error__container {
     margin-top: 20px;
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+  }
+
+  .dragInfo {
+    font-size: 14px;
+    margin-top: 10px;
+    color: #a5a6ffdb;
   }
 
   .card__heading {
@@ -98,10 +115,11 @@
   }
 
   .card__or {
-    margin-top: 55px;
+    margin-top: 36px;
     display: flex;
     width: 100%;
     align-items: center;
+    margin-bottom: 30px;
   }
 
   .lineLeft {
@@ -132,11 +150,8 @@
     display: flex;
     align-items: center;
     width: 100%;
-    height: 100%;
+    height: 49px;
     max-width: 187px;
-    max-height: 49px;
-
-    /* background: */
     border: 0;
     border-radius: 8px;
     padding: 0;
@@ -147,6 +162,7 @@
     );
     background-repeat: repeat;
     transition: background-position 0.3s ease;
+    box-shadow: 0px 0px 20px rgb(21 22 162 / 60%);
     cursor: pointer;
   }
 
@@ -182,5 +198,31 @@
 
   .card__choose-file__icon__svg {
     fill: #adaeff;
+  }
+
+  @media (max-width: 490px) {
+    .card__choose-file {
+      margin-top: 40px;
+    }
+
+    .card__heading {
+      font-size: 30px;
+    }
+
+    .card__imageTypeInfo {
+      font-size: 1rem;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .card__dragdrop__container,
+    .card__or,
+    .dragInfo {
+      display: none;
+    }
+
+    .card__choose-file {
+      margin-top: 40px;
+    }
   }
 </style>
