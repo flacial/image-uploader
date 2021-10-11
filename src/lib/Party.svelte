@@ -1,6 +1,5 @@
 <script lang="ts">
   import anime from "animejs/lib/anime.es.js";
-  import { imageBuffer } from "../store/store";
   import { onMount } from "svelte";
 
   export let emojiWidth = 70;
@@ -51,11 +50,11 @@
   const randomDegree = (min, max) =>
     Math.floor(Math.random() * (min - max) + max);
 
-  // onMount(() => {
-  // setTimeout(() => {
-  window.onload = () => generatePartyPoppers(25);
-  // }, 500);
-  // });
+  onMount(() => {
+    setTimeout(() => {
+      generatePartyPoppers(25);
+    }, 300);
+  });
 </script>
 
 <div class="div">
