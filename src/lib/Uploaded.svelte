@@ -2,6 +2,7 @@
   import Card from "./Card.svelte";
   import Party from "./Party.svelte";
   import Uploading from "./Uploading.svelte";
+  import { scale } from "svelte/transition";
   import { imageName, imageBuffer, imageUrl } from "../store/store";
 
   let copyLink = $imageUrl.fileUrl;
@@ -21,7 +22,7 @@
     imageUrl.set("");
   };
 
-  const preload = (src: string) => {
+  const preloadImage = (src: string) => {
     return new Promise(function (resolve) {
       let img = new Image();
       img.onload = resolve;
@@ -30,10 +31,10 @@
   };
 </script>
 
-{#await preload($imageBuffer)}
+{#await preloadImage("party-popper.png")}
   <Uploading />
 {:then}
-  <Card paddingYTop={24} paddingYBottom={24}>
+  <Card paddingYTop={24} paddingYBottom={24} transition={scale}>
     <div class="wrapper">
       <div class="back" on:click={goBack}>
         <img src="arrow_back.svg" alt="back home" />
