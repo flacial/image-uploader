@@ -4,6 +4,7 @@
   import Uploading from "./Uploading.svelte";
   import { scale } from "svelte/transition";
   import { imageName, imageBuffer, imageUrl } from "../store/store";
+  import { preloadImage } from '../utils/utils';
 
   let copyLink = $imageUrl.fileUrl;
 
@@ -20,14 +21,6 @@
     imageName.set("");
     imageBuffer.set("");
     imageUrl.set("");
-  };
-
-  const preloadImage = (src: string) => {
-    return new Promise(function (resolve) {
-      let img = new Image();
-      img.onload = resolve;
-      img.src = src;
-    });
   };
 </script>
 
