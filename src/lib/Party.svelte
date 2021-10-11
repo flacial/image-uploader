@@ -1,9 +1,9 @@
 <script lang="ts">
   import anime from "animejs/lib/anime.es.js";
-  import { onMount } from "svelte";
 
   export let emojiWidth = 70;
   export let shotsDelayed = true;
+  export let partyMode = true;
 
   let partyPopperBig: { offsetHeight: number; offsetWidth: number };
   let partyPoppers = [];
@@ -49,12 +49,6 @@
 
   const randomDegree = (min, max) =>
     Math.floor(Math.random() * (min - max) + max);
-
-  onMount(() => {
-    setTimeout(() => {
-      generatePartyPoppers(25);
-    }, 300);
-  });
 </script>
 
 <div class="div">
@@ -68,7 +62,7 @@
     >
       <img
         class="partyPopper"
-        src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/mozilla/36/party-popper_1f389.png"
+        src="party-popper.png"
         alt="partyPopper"
         style="left: {partyPopperBig.offsetWidth /
           3}px; top: {partyPopperBig.offsetHeight /
@@ -80,11 +74,12 @@
   {/each}
   <img
     class="emoji"
-    src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/mozilla/36/party-popper_1f389.png"
+    src="party-popper.png"
     alt="Party popper emoji"
     on:click={party}
     bind:this={partyPopperBig}
     style="width: {emojiWidth}px"
+    on:load={() => partyMode && generatePartyPoppers(25)}
   />
 </div>
 
