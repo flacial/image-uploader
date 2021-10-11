@@ -1,5 +1,6 @@
 <script lang="ts">
   import anime from "animejs/lib/anime.es.js";
+  import { imageBuffer } from "../store/store";
   import { onMount } from "svelte";
 
   export let emojiWidth = 70;
@@ -47,12 +48,13 @@
     }
   };
 
-  const randomDegree = (min, max) => Math.floor(Math.random() * (min - max) + max);
+  const randomDegree = (min, max) =>
+    Math.floor(Math.random() * (min - max) + max);
 
   // onMount(() => {
-    // setTimeout(() => {
-      window.onload = () => generatePartyPoppers(25);
-    // }, 500);
+  // setTimeout(() => {
+  window.onload = () => generatePartyPoppers(25);
+  // }, 500);
   // });
 </script>
 
@@ -60,7 +62,10 @@
   {#each partyPoppers as pp}
     <div
       class="party-poppers"
-      style="transform: rotate({randomDegree(10, -80)}deg); height: {partyPopperBig.offsetHeight}px; width: {partyPopperBig.offsetWidth}px"
+      style="transform: rotate({randomDegree(
+        10,
+        -80
+      )}deg); height: {partyPopperBig.offsetHeight}px; width: {partyPopperBig.offsetWidth}px"
     >
       <img
         class="partyPopper"
