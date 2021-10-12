@@ -12,19 +12,14 @@
       const [firstFile] = ev.target.files;
       imageName.set(firstFile.name);
 
+      isError.set(false);
+
       const reader = new FileReader();
-
-      reader.onload = () => {
-        imageBuffer.set(reader.result as string);
-      };
-
+      reader.onload = () => imageBuffer.set(reader.result as string);
       reader.readAsDataURL(firstFile);
 
       uploadImageFormData({ file: firstFile })
-        .then((url) => {
-          console.log(url);
-          imageUrl.set(url);
-        })
+        .then((url) => imageUrl.set(url))
         .catch(() => isError.set(true));
     });
 
