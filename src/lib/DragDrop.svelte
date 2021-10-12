@@ -9,6 +9,9 @@
     initialBorder: "2px dashed #b6b7ff",
   };
 
+  let dragBg = dragStyles.initiaLbackgroundColor;
+  let dragBorder = dragStyles.initialBorder;
+
   let imageInput: HTMLDivElement;
 
   const dropHandler = (ev: DragEvent) => {
@@ -22,22 +25,20 @@
           firstFile.getAsFile().type.split("/")[0] === "image";
 
         if (isImage) {
-          const reader = new FileReader();
           const fileAsFile = firstFile.getAsFile();
-
           imageName.set(fileAsFile.name);
 
-          reader.onload = () => {
-            imageBuffer.set(reader.result as string);
-          };
+          isError.set(false);
 
+          const reader = new FileReader();
+          reader.onload = () => imageBuffer.set(reader.result as string);
           reader.readAsDataURL(fileAsFile);
 
           uploadImageFormData({ file: firstFile })
-            .then((url) => {
-              imageUrl.set(url);
-            })
+            .then((url) => imageUrl.set(url))
             .catch(() => isError.set(true));
+        } else {
+          setInitDragStyles();
         }
       }
     } else {
@@ -45,24 +46,25 @@
     }
   };
 
-  const dragOverHandler = () => {
-    imageInput.style.backgroundColor = dragStyles.backgroundColor;
-    imageInput.style.border = dragStyles.border;
+  const setDragOverStyles = () => {
+    dragBg = dragStyles.backgroundColor;
+    dragBorder = dragStyles.border;
     return;
   };
 
-  const dragLeaveHandler = () => {
-    imageInput.style.backgroundColor = dragStyles.initiaLbackgroundColor;
-    imageInput.style.border = dragStyles.initialBorder;
+  const setInitDragStyles = () => {
+    dragBg = dragStyles.initiaLbackgroundColor;
+    dragBorder = dragStyles.initialBorder;
     return;
   };
 </script>
 
 <div
+  style="background-color: {dragBg}; border: {dragBorder}"
   class="imageInput"
   on:drop|preventDefault={dropHandler}
-  on:dragover|preventDefault={dragOverHandler}
-  on:dragleave={dragLeaveHandler}
+  on:dragover|preventDefault={setDragOverStyles}
+  on:dragleave={setInitDragStyles}
   bind:this={imageInput}
 />
 
@@ -73,8 +75,8 @@
     max-width: 399px;
     padding-bottom: 251px;
 
-    background-color: rgba(108, 109, 209, 0.4);
-    border: 2px dashed #b6b7ff;
+    /* background-color: rgba(108, 109, 209, 0.4); */
+    /* border: 2px dashed #b6b7ff; */
     box-sizing: border-box;
     box-shadow: 0px 4px 22px rgba(0, 0, 0, 0.13);
     border-radius: 28px;
