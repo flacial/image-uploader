@@ -7,7 +7,7 @@ Run `npm i` or `yarn` to install the dependencies
 
 ### Scripts
 
-1. dev: start vite for development
+1. dev: start vite server for development
    * `npm run dev` or `yarn dev`
 
 2. gh: commit and push the `dist` folder to `gh-pages` branch
