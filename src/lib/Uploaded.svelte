@@ -1,6 +1,8 @@
-<script>
+<script lang="ts">
   import Card from "./Card.svelte";
   import Party from "./Party.svelte";
+  import Uploading from "./Uploading.svelte";
+  import { scale } from "svelte/transition";
   import { imageName, imageBuffer, imageUrl } from "../store/store";
 
   let copyLink = $imageUrl.fileUrl;
@@ -21,7 +23,7 @@
   };
 </script>
 
-<Card paddingYTop={24} paddingYBottom={24}>
+<Card paddingYTop={24} paddingYBottom={24} transition={scale}>
   <div class="wrapper">
     <div class="back" on:click={goBack}>
       <img src="arrow_back.svg" alt="back home" />
@@ -42,11 +44,11 @@
       on:click={handleUserImageLink}
     >
       <span class="userImage__link__icon">
-        <!-- <img
+        <img
           class="svg userImage__link__icon__svg"
           src="link.svg"
           alt="Upload icon"
-        /> -->
+        />
         <img
           class="svg userImage__copy"
           alt="Copy to clipboard"
@@ -196,6 +198,7 @@
 
   .userImage__copy {
     width: 25px;
+    display: none;
   }
 
   @media screen and (max-width: 750px) {
@@ -239,6 +242,13 @@
     .back {
       top: auto;
       left: auto;
+    }
+
+    .userImage__link__icon__svg {
+      display: none;
+    }
+    .userImage__copy {
+      display: block;
     }
   }
 

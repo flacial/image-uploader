@@ -3,7 +3,7 @@
   import Uploading from "./lib/Uploading.svelte";
   import Uploaded from "./lib/Uploaded.svelte";
   import LoadingCircles from "./lib/LoadingCircles.svelte";
-  import { imageBuffer, imageUrl, isError } from "./store/store";
+  import { imageName, imageUrl, isError } from "./store/store";
 
   let loaded;
 
@@ -26,11 +26,11 @@
 <div class="wrapper">
   {#if loaded}
     <div class="card__container">
-      {#if $isError || !$imageBuffer}
+      {#if $isError || !$imageName}
         <Upload />
       {:else if $imageUrl}
         <Uploaded />
-      {:else if $imageBuffer}
+      {:else if $imageName}
         <Uploading />
       {/if}
     </div>

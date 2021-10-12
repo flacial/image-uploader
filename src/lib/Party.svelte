@@ -4,6 +4,7 @@
 
   export let emojiWidth = 70;
   export let shotsDelayed = true;
+  export let partyMode = true;
 
   let partyPopperBig: { offsetHeight: number; offsetWidth: number };
   let partyPoppers = [];
@@ -47,24 +48,22 @@
     }
   };
 
-  const randomDegree = (min, max) => Math.floor(Math.random() * (min - max) + max);
-
-  // onMount(() => {
-    // setTimeout(() => {
-      window.onload = () => generatePartyPoppers(25);
-    // }, 500);
-  // });
+  const randomDegree = (min, max) =>
+    Math.floor(Math.random() * (min - max) + max);
 </script>
 
 <div class="div">
   {#each partyPoppers as pp}
     <div
       class="party-poppers"
-      style="transform: rotate({randomDegree(10, -80)}deg); height: {partyPopperBig.offsetHeight}px; width: {partyPopperBig.offsetWidth}px"
+      style="transform: rotate({randomDegree(
+        10,
+        -80
+      )}deg); height: {partyPopperBig.offsetHeight}px; width: {partyPopperBig.offsetWidth}px"
     >
       <img
         class="partyPopper"
-        src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/mozilla/36/party-popper_1f389.png"
+        src="party-popper.png"
         alt="partyPopper"
         style="left: {partyPopperBig.offsetWidth /
           3}px; top: {partyPopperBig.offsetHeight /
@@ -76,11 +75,12 @@
   {/each}
   <img
     class="emoji"
-    src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/mozilla/36/party-popper_1f389.png"
+    src="party-popper.png"
     alt="Party popper emoji"
-    on:click={party}
-    bind:this={partyPopperBig}
     style="width: {emojiWidth}px"
+    on:click={party}
+    on:load={() => partyMode && generatePartyPoppers(25)}
+    bind:this={partyPopperBig}
   />
 </div>
 
