@@ -4,7 +4,6 @@
   import Uploading from "./Uploading.svelte";
   import { scale } from "svelte/transition";
   import { imageName, imageBuffer, imageUrl } from "../store/store";
-  import { preloadImage } from '../utils/utils';
 
   let copyLink = $imageUrl.fileUrl;
 
@@ -24,53 +23,49 @@
   };
 </script>
 
-{#await preloadImage("party-popper.png")}
-  <Uploading />
-{:then}
-  <Card paddingYTop={24} paddingYBottom={24} transition={scale}>
-    <div class="wrapper">
-      <div class="back" on:click={goBack}>
-        <img src="arrow_back.svg" alt="back home" />
-      </div>
-      <div class="heading">
-        <h1><span style="color: #b6b8ff;">Uploaded</span> {$imageName}</h1>
-        <Party />
-      </div>
+<Card paddingYTop={24} paddingYBottom={24} transition={scale}>
+  <div class="wrapper">
+    <div class="back" on:click={goBack}>
+      <img src="arrow_back.svg" alt="back home" />
     </div>
-    <div class="userImage__container">
-      <img class="userImage" src={$imageBuffer} alt={$imageName} />
+    <div class="heading">
+      <h1><span style="color: #b6b8ff;">Uploaded</span> {$imageName}</h1>
+      <Party />
     </div>
-    <div class="userImage__link__container">
-      <button
-        class="userImage__link"
-        on:mouseenter={() => (copyLink = "Copy to clipboard")}
-        on:mouseleave={() => (copyLink = $imageUrl.fileUrl)}
-        on:click={handleUserImageLink}
-      >
-        <span class="userImage__link__icon">
-          <!-- <img
-            class="svg userImage__link__icon__svg"
-            src="link.svg"
-            alt="Upload icon"
-          /> -->
-          <img
-            class="svg userImage__copy"
-            alt="Copy to clipboard"
-            src="copy.svg"
-          />
-        </span>
-        <span class="userImage__link__text">{copyLink}</span>
-      </button>
-      <a class="userImage__open" href={$imageUrl.fileUrl} target="_blank">
+  </div>
+  <div class="userImage__container">
+    <img class="userImage" src={$imageBuffer} alt={$imageName} />
+  </div>
+  <div class="userImage__link__container">
+    <button
+      class="userImage__link"
+      on:mouseenter={() => (copyLink = "Copy to clipboard")}
+      on:mouseleave={() => (copyLink = $imageUrl.fileUrl)}
+      on:click={handleUserImageLink}
+    >
+      <span class="userImage__link__icon">
         <img
-          class="svg userImage__open__icon__svg"
-          src="open.svg"
+          class="svg userImage__link__icon__svg"
+          src="link.svg"
           alt="Upload icon"
         />
-      </a>
-    </div>
-  </Card>
-{/await}
+        <img
+          class="svg userImage__copy"
+          alt="Copy to clipboard"
+          src="copy.svg"
+        />
+      </span>
+      <span class="userImage__link__text">{copyLink}</span>
+    </button>
+    <a class="userImage__open" href={$imageUrl.fileUrl} target="_blank">
+      <img
+        class="svg userImage__open__icon__svg"
+        src="open.svg"
+        alt="Upload icon"
+      />
+    </a>
+  </div>
+</Card>
 
 <style>
   .back {
@@ -203,6 +198,7 @@
 
   .userImage__copy {
     width: 25px;
+    display: none;
   }
 
   @media screen and (max-width: 750px) {
@@ -246,6 +242,13 @@
     .back {
       top: auto;
       left: auto;
+    }
+
+    .userImage__link__icon__svg {
+      display: none;
+    }
+    .userImage__copy {
+      display: block;
     }
   }
 

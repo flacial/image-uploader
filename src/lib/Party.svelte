@@ -1,5 +1,6 @@
 <script lang="ts">
   import anime from "animejs/lib/anime.es.js";
+  import { onMount } from "svelte";
 
   export let emojiWidth = 70;
   export let shotsDelayed = true;
@@ -76,10 +77,10 @@
     class="emoji"
     src="party-popper.png"
     alt="Party popper emoji"
-    on:click={party}
-    bind:this={partyPopperBig}
     style="width: {emojiWidth}px"
+    on:click={party}
     on:load={() => partyMode && generatePartyPoppers(25)}
+    bind:this={partyPopperBig}
   />
 </div>
 
