@@ -23,7 +23,7 @@
   };
 </script>
 
-<Card paddingYTop={24} paddingYBottom={24} transition={scale}>
+<Card paddingYTop={24} paddingYBottom={24} transition={scale} maxHeight="auto">
   <div class="wrapper">
     <div class="back" on:click={goBack}>
       <img src="arrow_back.svg" alt="back home" />
@@ -113,6 +113,7 @@
 
   .userImage {
     width: 100%;
+    height: 100%;
     max-width: 67%;
     border-radius: 20px;
     box-shadow: 13px 13px 0 0 #4e50cf;

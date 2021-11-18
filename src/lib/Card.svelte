@@ -1,15 +1,17 @@
 <script lang="ts">
   import { fade } from "svelte/transition";
 
-  export let maxHeight: number = 625;
-  export let maxWidth: number = 525;
+  type maxSize = string | number;
+
+  export let maxHeight: maxSize = 625;
+  export let maxWidth: maxSize = 525;
   export let center: boolean = true;
   export let paddingYTop: number = 55;
   export let paddingYBottom: number = 0;
   export let backgroundColor: string = "rgba(230, 230, 230, 0.27)";
   export let transition = fade;
 
-  const centerStyles: string =
+  const centerStyles =
     "display: flex; flex-direction: column; align-items: center;";
 </script>
 

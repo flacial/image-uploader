@@ -18,10 +18,10 @@
     const files = ev.dataTransfer.items;
 
     if (files) {
-      const [firstFile]: DataTransferItemList = files;
+      const [firstFile] = files;
 
       if (firstFile.kind === "file") {
-        const isImage: Boolean =
+        const isImage =
           firstFile.getAsFile().type.split("/")[0] === "image";
 
         if (isImage) {

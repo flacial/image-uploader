@@ -5,7 +5,7 @@
   import { imageUrl, imageName, imageBuffer, isError } from "../store/store";
 
   const handleChooseFile = () => {
-    const input: HTMLInputElement = document.createElement("input");
+    const input = document.createElement("input");
     input.type = "file";
 
     input.addEventListener("change", (ev) => {
