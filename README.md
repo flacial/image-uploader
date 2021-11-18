@@ -18,3 +18,4 @@ Run `npm i` or `yarn` to install the dependencies
 * Favicon: [Freepik](https://www.freepik.com)
 * Icons: [Google icons](https://fonts.google.com/icons)
 * Illustration: [Sally 3d Illustration pack](https://www.figma.com/file/xUhwoCYieEjlWr7yoNMcB7/SALY---3D-Illustration-Pack-(Community)?node-id=0%3A1)
+* devChallenges: [devChallenges](https://devchallenges.io)
